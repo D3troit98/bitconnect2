@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Polling Unit Results</title>
+  <style>
+    /* Styling for the page title */
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+    /* Styling for the container div */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Styling for the table */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* Styling for the party input fields */
+    .party-input {
+      margin-top: 20px;
+    }
+
+    .party-input label {
+      display: inline-block;
+      width: 80px;
+    }
+
+    .party-input input[type="number"] {
+      width: 100px;
+      margin-left: 20px;
+    }
+
+    .party-input button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Enter results for a new polling unit</h1>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <label for="polling_unit">Polling Unit:</label>
+      <select name="polling_unit" id="polling_unit">
+        {% for pu in polling_units %}
+        <option value="{{ pu.uniqueid }}">{{ pu.polling_unit_name }}</option>
+        {% endfor %}
+      </select>
+
+      <div id="party-inputs">
+        <div class="party-input">
+          <label for="party1">Party 1:</label>
+          <input type="number" name="party1" id="party1">
+        </div>
+        <div class="party-input">
+          <label for="party2">Party 2:</label>
+          <input type="number" name="party2" id="party2">
+        </div>
+        <div class="party-input">
+          <label for="party3">Party 3:</label>
+          <input type="number" name="party3" id="party3">
+        </div>
+      </div>
+
+      <div id="add-party">
+        <button type="button" id="add-party-button">Add Party</button>
+        <button type="button" id="remove-party-button">Remove Party</button>
+      </div>
+
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+
+  </div>
+
+  <script>
+    const partyInputs = document.getElementById("party-inputs");
+    const addPartyButton = document.getElementById("add-party-button");
+    const removePartyButton = document.getElementById("remove-party-button");
+  
+    addPartyButton.addEventListener("click", function() {
+      const numParties = partyInputs.children.length;
+      const newPartyNumber = numParties + 1;
+  
+      const newPartyInput = document.createElement("div");
+      newPartyInput.className = "party-input";
+      newPartyInput.innerHTML = `
+        <label for="party${newPartyNumber}">Party ${newPartyNumber}:</label>
+        <input type="number" name="party${newPartyNumber}" id="party${newPartyNumber}">
+      `;
+  
+      partyInputs.appendChild(newPartyInput);
+    });
+  
+    removePartyButton.addEventListener("click", function() {
+      const numParties = partyInputs.children.length;
+      if (numParties > 1) {
+        partyInputs.removeChild(partyInputs.lastChild);
+      }
+    });
+  </script>
+
+  </body>
+  </html>
+  

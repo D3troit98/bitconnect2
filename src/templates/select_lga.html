@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select LGA</title>
+</head>
+<body>
+    <h1>Select LGA</h1>
+    {% for lga in lgas %}
+    <p>{{ lga.lga_id }}</p>
+    <p>{{ lga.lga_name }}</p>
+    {% endfor %}
+    <form method="post" action="{% url 'lga_polling_unit_results' %}">
+        {% csrf_token %}
+        <label for="lga">Choose an LGA:</label>
+        <select name="lga" id="lga">
+            {% for lga in lgas %}
+            <option value="{{ lga.lga_id }}">{{ lga.lga_name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Show Results</button>
+    </form>
+</body>
+</html>

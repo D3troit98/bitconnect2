@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LGA Polling Unit Results</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Party</th>
+                <th>Total Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for party, score in total_results.items %}
+            <tr>
+                <td>{{ party }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% for result in results.items %}
+    <p>{{result}}
+        polling_units</p>
+        {% endfor %}
+
+        {% for polling_unit in polling_units.items %}
+        <p>
+            {{polling_unit}}</p>
+            {% endfor %}
+</body>
+</html>
