@@ -1,4 +1,4 @@
-## Django MySQL Example
+## Django Bitconnet MySQL 
 This is an example Django application that uses MySQL as the database backend. It provides a simple web interface to manage a list of books.
 
 # Installation
@@ -24,12 +24,10 @@ GRANT ALL PRIVILEGES ON django_mysql_example.* TO 'django'@'localhost';
 FLUSH PRIVILEGES;
 Create the database tables:
 
-Copy code
 python manage.py migrate
 Usage
 Start the Django development server:
 
-Copy code
 python manage.py runserver
 Open a web browser and go to http://localhost:8000//
 
